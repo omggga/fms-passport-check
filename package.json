@@ -1,0 +1,26 @@
+{
+  "name": "fms-passport-check",
+  "version": "1.0.0",
+  "description": "Получения данных с ГУ МВД",
+  "main": "fms-http-client.js",
+  "scripts": {
+    "test": "mocha ./__test__/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omggga/fms-passport-check.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omggga/fms-passport-check/issues"
+  },
+  "homepage": "https://github.com/omggga/fms-passport-check#readme",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "crypto": "^1.0.1",
+    "fs": "^0.0.1-security",
+    "mocha": "^9.2.2",
+    "requestretry": "^7.0.2"
+  }
+}

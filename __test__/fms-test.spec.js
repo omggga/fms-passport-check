@@ -5,7 +5,7 @@ const request = require('requestretry')
 const crypto = require('crypto')
 const fs = require('fs')
 
-const FMSClient = require('./fms-http-client')
+const FMSClient = require('./../fms-http-client')
 const client = new FMSClient()
 
 //Set proxy if needed
