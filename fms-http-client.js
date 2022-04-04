@@ -4,7 +4,6 @@ const request = require('requestretry')
 const crypto = require('crypto')
 const fs = require('fs')
 
-//Set proxy if needed
 const rq = request.defaults({ proxy: undefined })
 
 const config = {
@@ -43,6 +42,7 @@ class FmsClient {
 			const options = {
 				url: 'http://services.fms.gov.ru/services/captcha.jpg'
 			}
+
 			rq(options, function(err, response, body) {
 				if(err) return reject(err)
 
@@ -60,6 +60,7 @@ class FmsClient {
 			arr: [],
 			sessionId: matchResult[1]
 		}
+
 		for(let p = 1; p < 7; p++) {
 			obj.arr.push(config.domainName + config.mp3Path +  matchResult[1] + '/' + p + '.mp3?paramforproxy=todownloadmp3')
 		}
@@ -108,6 +109,7 @@ class FmsClient {
 
 	async _isPassportValidByFms(ser, num, captcha, sessionId) {
 		return new Promise((resolve, reject) => {
+
 			if(captcha.length !== 6) {
 				reject(new Error(`Сгенерированна недействительная captcha: ${captcha}`))
 			}
@@ -141,8 +143,8 @@ class FmsClient {
 
 				const result = parseRequestedResult(body, ser, num)
 				if (result instanceof Error) return reject(result)
-
 				resolve(result)
+
 			}).on('error', function(error) {
 				reject(new Error(`Получен неправильный ответ от fms.gov.ru: ${error}`))
 			})
