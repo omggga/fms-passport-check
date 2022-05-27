@@ -1,6 +1,6 @@
 {
   "name": "fms-passport-check",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Получения данных с ГУ МВД",
   "main": "fms-http-client.js",
   "scripts": {

@@ -1,6 +1,9 @@
 # FMS
 Получения данных с ГУ МВД
 
+## Update
+Обновлены функции обработки, запросы теперь обрабатываются через node-fetch, а не deprecated request
+
 ## API list
 - [Default](#default)
 
