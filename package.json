@@ -4,7 +4,8 @@
   "description": "Получения данных с ГУ МВД",
   "main": "fms-http-client.js",
   "scripts": {
-    "test": "mocha ./__test__/*.spec.js"
+    "test": "mocha ./__test__/*.spec.js",
+    "test:debug": "mocha --inspect-brk ./__test__/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,12 @@
   },
   "homepage": "https://github.com/omggga/fms-passport-check#readme",
   "dependencies": {
+    "abort-controller": "^3.0.0",
     "assert": "^2.0.0",
     "crypto": "^1.0.1",
+    "form-data": "^4.0.0",
     "fs": "^0.0.1-security",
     "mocha": "^9.2.2",
-    "requestretry": "^7.0.2"
+    "node-fetch": "^2.6.7"
   }
 }

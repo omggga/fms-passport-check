@@ -33,6 +33,7 @@ class FmsClient {
 	}
 
 	async initialize() {
+		debugger
 		const cookies = await this.getRequestCookies()
 		const { arr, sessionId } = this.parseCookies(cookies)
 		this.sessionId = sessionId
