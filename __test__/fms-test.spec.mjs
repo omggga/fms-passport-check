@@ -1,8 +1,8 @@
 import assert from 'assert'
 import crypto from 'crypto'
 import { createReadStream } from 'fs'
-import { requestUntilSuccess } from './../utils.js';
-import FMSClient from './../index.js'
+import { requestUntilSuccess } from './../utils.mjs';
+import FMSClient from './../index.mjs'
 
 describe('fms-http-client.js', () => {
 

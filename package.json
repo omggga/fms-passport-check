@@ -1,12 +1,11 @@
 {
   "name": "fms-passport-check",
   "version": "2.0.0",
-  "type": "module",
   "description": "Получения данных с ГУ МВД",
   "main": "index.js",
   "scripts": {
-    "test": "mocha  --timeout 10000 ./__test__/*.spec.js",
-    "test:debug": "mocha --inspect-brk ./__test__/*.spec.js",
+    "test": "mocha  --timeout 10000 ./__test__/*.spec.mjs",
+    "test:debug": "mocha --inspect-brk ./__test__/*.spec.mjs",
     "lint": "eslint"
   },
   "repository": {

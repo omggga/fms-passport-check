@@ -1,7 +1,7 @@
 'use strict'
 
 import crypto from 'crypto';
-import { requestUntilSuccess } from './utils.js'
+import { requestUntilSuccess } from './utils.mjs'
 
 const config = {
 	domainName: 'http://services.fms.gov.ru/',
