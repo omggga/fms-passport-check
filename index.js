@@ -100,8 +100,8 @@ class FmsClient {
 		}
 
 		const response = await requestUntilSuccess(url, options)
-		const buff = await response.buffer()
-		hash.update(buff)
+		const buff = await response.arrayBuffer()
+		hash.update(Buffer.from(buff))
 		hash = hash.digest('hex')
 
 		for (let j = 0; j < config.sha1Array.length; j++) {
@@ -137,9 +137,9 @@ class FmsClient {
 		}
 
 		const text = await response.text()
-		if (/недействительных не значится/gi.test(text)) {
+		if (IS_NOT_INVALID.test(text)) {
 			return true
-		} else if (/Не действителен/gi.test(text)) {
+		} else if (IS_INVALID.test(text)) {
 			return false
 		} else {
 			throw new Error(
