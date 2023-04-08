@@ -1,9 +1,7 @@
 'use strict'
 
-const crypto = require('crypto')
-const fs = require('fs')
-const FormData = require('form-data')
-const utils = require('./utils')
+import crypto from 'crypto';
+import { requestUntilSuccess } from './utils.js'
 
 const config = {
 	domainName: 'http://services.fms.gov.ru/',
@@ -33,12 +31,15 @@ class FmsClient {
 	}
 
 	async initialize() {
-		debugger
-		const cookies = await this.getRequestCookies()
-		const { arr, sessionId } = this.parseCookies(cookies)
-		this.sessionId = sessionId
-		const captcha = await this.readCaptcha(arr)
-		this.captcha = captcha
+		try {
+			const cookies = await this.getRequestCookies()
+			const { arr, sessionId } = this.parseCookies(cookies)
+			this.sessionId = sessionId
+			const captcha = await this.readCaptcha(arr)
+			this.captcha = captcha
+		} catch (err) {
+			throw err
+		}
 	}
 
 	async validate(ser, num) {
@@ -46,7 +47,7 @@ class FmsClient {
 	}
 
 	async getRequestCookies() {
-		const response = await utils.requestUntilSuccess(`http://services.fms.gov.ru/services/captcha.jpg`)
+		const response = await requestUntilSuccess(`http://services.fms.gov.ru/services/captcha.jpg`)
 		if (!response.ok) {
 			throw new Error(`Ошибка! [${response.status}]:${response.statusText}`)
 		}
@@ -98,7 +99,7 @@ class FmsClient {
 			}
 		}
 
-		const response = await utils.requestUntilSuccess(url, options)
+		const response = await requestUntilSuccess(url, options)
 		const buff = await response.buffer()
 		hash.update(buff)
 		hash = hash.digest('hex')
@@ -130,7 +131,7 @@ class FmsClient {
 			body: form
 		}
 
-		const response = await utils.requestUntilSuccess(`${config.domainName}${config.resultPostpathName}`, options)
+		const response = await requestUntilSuccess(`${config.domainName}${config.resultPostpathName}`, options)
 		if (!response.ok) {
 			throw new Error(`Ошибка! [${response.status}]:${response.statusText}`)
 		}
@@ -148,4 +149,4 @@ class FmsClient {
 	}
 }
 
-module.exports = FmsClient
+export default FmsClient
