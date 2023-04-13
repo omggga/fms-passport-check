@@ -1,10 +1,11 @@
 # FMS
-Получения данных с ГУ МВД
+Data acquisition from the Ministry of Internal Affairs of Russia
 
-Предзназначен для работы с **Nodejs**
+Designed to work with **Nodejs**
 
-Установка и проверка работоспособности:
-```
+Installation and verification of performance:
+
+```javascript
 npm install
 npm run test
 
@@ -19,12 +20,12 @@ const result = await client.validate(SER, NUM)
 
 
 ## Update
-Актуализированы тесты и исправлены package и lock файлы
+Tests have been updated and package and lock files have been corrected.
 
-Обновлены функции обработки, запросы теперь обрабатываются через node-fetch, а не deprecated request
+Processing functions have been updated, requests are now processed via node-fetch instead of deprecated request.
 
 ## API list
 - [validate](#validate)
 
 ## validate
-Получение информации о паспорте гражданина РФ по списку недействительных паспортов.
+Obtaining information about the passport of a citizen of the Russian Federation from the list of invalid passports.

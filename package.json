@@ -1,7 +1,7 @@
 {
   "name": "fms-passport-check",
-  "version": "2.0.0",
-  "description": "Получения данных с ГУ МВД",
+  "version": "2.1.0",
+  "description": "Obtaining information about the passport of a citizen of the Russian Federation from the list of invalid passports",
   "main": "index.js",
   "scripts": {
     "test": "mocha  --timeout 10000 ./__test__/*.spec.mjs",

@@ -101,7 +101,7 @@ class FmsClient {
 
 	async isValid(ser, num) {
 		if (this.captcha.length !== 6) {
-			throw new Error(`Сгенерированна недействительная captcha: ${this.captcha}`)
+			throw new Error(`Invalid captcha generated: ${this.captcha}`)
 		}
 
 		const form = new FormData()
@@ -131,7 +131,7 @@ class FmsClient {
 			return false
 		} else {
 			throw new Error(
-				`Невозможно обработать запрос, возможно переданны неверные данные или сессия капчи закончилась. Серия: ${ser}, номер: ${num}`
+				`Unable to process the request, possibly incorrect data was passed or the captcha session has ended. Series: ${ser}, number: ${num}`
 			)
 		}
 	}
