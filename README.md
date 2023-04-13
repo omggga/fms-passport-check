@@ -10,7 +10,7 @@ npm run test
 
 import FMSClient from './index.mjs'
 
-client = new FMSClient()
+const client = new FMSClient()
 await client.initialize()
 
 const result = await client.validate(SER, NUM)
