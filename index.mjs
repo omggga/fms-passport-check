@@ -67,25 +67,14 @@ class FmsClient {
 		const arr = []
 
 		for (let p = 1; p < 7; p++) {
-			arr.push(
-				config.domainName +
-					config.mp3Path +
-					matchResult[1] +
-					'/' +
-					p +
-					'.mp3?paramforproxy=todownloadmp3'
-			)
+			arr.push(`${config.domainName}${config.mp3Path}${sessionId}/${p}.mp3?paramforproxy=todownloadmp3`)
 		}
 
 		return { arr, sessionId }
 	}
 
 	async readCaptcha(arr) {
-		var hashList = []
-		for (const url of arr) {
-			const num = await this.getHashNum(url)
-			hashList.push(num)
-		}
+		const hashList = await Promise.all(arr.map(this.getHashNum.bind(this)))
 		return hashList.join('')
 	}
 
@@ -95,20 +84,19 @@ class FmsClient {
 
 		const options = {
 			headers: {
-				Cookie: 'JSESSIONID=' + this.sessionId
+				Cookie: `JSESSIONID=${this.sessionId}`
 			}
 		}
 
 		const response = await requestUntilSuccess(url, options)
 		const buff = await response.arrayBuffer()
 		hash.update(Buffer.from(buff))
-		hash = hash.digest('hex')
-
-		for (let j = 0; j < config.sha1Array.length; j++) {
-			if (config.sha1Array[j] === hash.toUpperCase()) {
-				return j + 1
-			}
+		const hashHex = hash.digest('hex')
+		const index = config.sha1Array.findIndex((val) => val === hashHex.toUpperCase())
+		if (index < 0) {
+			throw new Error(`SHA1 hash "${hashHex}" not found in config.fms.sha1Array`)
 		}
+		return index + 1
 	}
 
 	async isValid(ser, num) {
@@ -126,7 +114,7 @@ class FmsClient {
 		const options = {
 			method: 'POST',
 			headers: {
-				Cookie: 'JSESSIONID=' + this.sessionId
+				Cookie: `JSESSIONID=${this.sessionId}`
 			},
 			body: form
 		}

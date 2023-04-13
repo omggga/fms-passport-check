@@ -1,11 +1,19 @@
 # FMS
 Получения данных с ГУ МВД
+
 Предзназначен для работы с **Nodejs**
 
 Установка и проверка работоспособности:
 ```
 npm install
 npm run test
+
+import FMSClient from './index.mjs'
+
+client = new FMSClient()
+await client.initialize()
+
+const result = await client.validate(SER, NUM)
 ```
 
 
