@@ -10,46 +10,38 @@ const defaultRetryOptions = {
 	interval: 1000
 }
 
-async function request(url, opts, timeout = 30000) {
+async function request(url, opts = {}, timeout = 30000) {
 	const controller = new AbortController()
-	const signal = controller.signal
+	const { signal } = controller
 
-	const options = { ...defaultProps, signal, ...opts }
+	const options = { ...defaultProps, ...opts, signal }
 	const requestTimeout = setTimeout(() => {
 		controller.abort()
 	}, timeout)
 
 	try {
-		const response = await fetch(url, options)
-		return response
+		return await fetch(url, options)
 	} finally {
 		clearTimeout(requestTimeout)
 	}
 }
 
-function requestUntilSuccess(url, options, timeout = 30000, retryOptions) {
+function requestUntilSuccess(url, options = {}, timeout = 30000, retryOptions = {}) {
 	const retryOpts = { ...defaultRetryOptions, ...retryOptions }
-	return execUntilSuccess(request, this, [url, options, timeout], retryOpts)
+	return execUntilSuccess(() => request(url, options, timeout), retryOpts)
 }
 
-function execUntilSuccess(fn, thisCtx, args, options) {
+async function execUntilSuccess(fn, options) {
 	let attempts = 0
 
 	const exec = async () => {
 		try {
-			return await fn.apply(thisCtx, args)
+			return await fn()
 		} catch (err) {
 			if (++attempts > options.attemptsLimit) throw err
 
-			return new Promise((resolve, reject) => {
-				setTimeout(async () => {
-					try {
-						resolve(await exec())
-					} catch (err) {
-						reject(err)
-					}
-				}, options.interval)
-			})
+			await new Promise(resolve => setTimeout(resolve, options.interval))
+			return exec()
 		}
 	}
 

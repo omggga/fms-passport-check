@@ -2,5 +2,21 @@
     "parserOptions": {
         "ecmaVersion": 2022,
         "sourceType": "module"
+    },
+    "env": {
+        "es2022": true,
+        "node": true,
+        "mocha": true
+    },
+    "extends": [
+        "eslint:recommended"
+    ],
+    "rules": {
+        "no-unused-vars": ["warn"],
+        "no-console": ["warn"],
+        "arrow-spacing": ["error", { "before": true, "after": true }],
+        "comma-dangle": ["error", "never"],
+        "no-var": ["error"],
+        "prefer-const": ["error"]
     }
 }

@@ -1,5 +1,3 @@
-'use strict'
-
 import crypto from 'crypto';
 import { requestUntilSuccess } from './utils.mjs'
 
@@ -31,29 +29,23 @@ class FmsClient {
 	}
 
 	async initialize() {
-		try {
-			const cookies = await this.getRequestCookies()
-			const { arr, sessionId } = this.parseCookies(cookies)
-			this.sessionId = sessionId
-			const captcha = await this.readCaptcha(arr)
-			this.captcha = captcha
-		} catch (err) {
-			throw err
-		}
+		const cookies = await this.getRequestCookies()
+		const { arr, sessionId } = this.parseCookies(cookies)
+		this.sessionId = sessionId
+		this.captcha = await this.readCaptcha(arr)
 	}
 
-	async validate(ser, num) {
-		return await this.isValid(ser, num)
+	validate(ser, num) {
+		return this.isValid(ser, num)
 	}
 
 	async getRequestCookies() {
-		const response = await requestUntilSuccess(`http://services.fms.gov.ru/services/captcha.jpg`)
+		const response = await requestUntilSuccess(`${config.domainName}services/captcha.jpg`)
 		if (!response.ok) {
 			throw new Error(`Ошибка! [${response.status}]:${response.statusText}`)
 		}
 
 		const cookies = response.headers.get('set-cookie')
-
 		if (!cookies || cookies.length === 0) {
 			throw new Error(`Получен неверный ответ от сервера: ${cookies}`)
 		}
@@ -63,7 +55,7 @@ class FmsClient {
 
 	parseCookies(cookies) {
 		const matchResult = cookies.match(COOKIE_REGEXP)
-		let sessionId = matchResult[1]
+		const sessionId = matchResult[1]
 		const arr = []
 
 		for (let p = 1; p < 7; p++) {
@@ -79,7 +71,7 @@ class FmsClient {
 	}
 
 	async getHashNum(url) {
-		let hash = crypto.createHash('sha1')
+		const hash = crypto.createHash('sha1')
 		hash.setEncoding('hex')
 
 		const options = {

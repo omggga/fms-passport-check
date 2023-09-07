@@ -1,14 +1,20 @@
-# FMS
-Data acquisition from the Ministry of Internal Affairs of Russia
+# FMS Client
 
-Designed to work with **Nodejs**
+A Node.js client for data acquisition from the Ministry of Internal Affairs of Russia.
 
-Installation and verification of performance:
+## Prerequisites
 
-```javascript
+- **Node.js**
+
+## Installation and Usage
+
+1. Install the necessary dependencies:
+```bash
 npm install
 npm run test
-
+```
+2. Use the FMS client in your project:
+```javascsript
 import FMSClient from './index.mjs'
 
 const client = new FMSClient()
@@ -19,12 +25,13 @@ const result = await client.validate(SER, NUM)
 
 
 
-## Update
-Tests have been updated and package and lock files have been corrected.
+## Updates
+- Tests have been updated.
+- Corrections made to package and lock files.
+- Transitioned to node-fetch for request processing, replacing the deprecated request library.
 
-Processing functions have been updated, requests are now processed via node-fetch instead of deprecated request.
 
-## API list
+## API
 - [validate](#validate)
 
 ## validate
