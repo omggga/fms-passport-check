@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/omggga/fms-passport-check#readme",
   "dependencies": {
-    "mocha": "^10.2.0",
+    "mocha": "^10.8.2",
     "node-fetch": "^3.3.1"
   },
   "eslintIgnore": [
